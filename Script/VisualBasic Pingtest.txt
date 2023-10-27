@@ -12,20 +12,20 @@ End Function
 Sub PingSystem()
 Dim strip As String
 Do Until Sheet1.Range("F1").Value = "STOP"
-Sheet1.Range("F1").Value = "TESTING"
+Sheet1.Range("F1").Value = "Start Ping..."
 For introw = 2 To ActiveSheet.Cells(65536, 2).End(xlUp).Row
     strip = ActiveSheet.Cells(introw, 2).Value
     If Ping(strip) = True Then
         ActiveSheet.Cells(introw, 3).Interior.ColorIndex = 0
         ActiveSheet.Cells(introw, 3).Font.Color = RGB(0, 0, 0)
-        ActiveSheet.Cells(introw, 3).Value = "Online"
-        Application.Wait (Now + TimeValue("0:00:01"))
+        ActiveSheet.Cells(introw, 3).Value = "Success"
+        'Application.Wait (Now + TimeValue("0:00:01"))
         ActiveSheet.Cells(introw, 3).Font.Color = RGB(0, 200, 0)
     Else
         ActiveSheet.Cells(introw, 3).Interior.ColorIndex = 0
         ActiveSheet.Cells(introw, 3).Font.Color = RGB(200, 0, 0)
-        ActiveSheet.Cells(introw, 3).Value = "Offline"
-        Application.Wait (Now + TimeValue("0:00:01"))
+        ActiveSheet.Cells(introw, 3).Value = "Failed"
+        'Application.Wait (Now + TimeValue("0:00:01"))
         ActiveSheet.Cells(introw, 3).Interior.ColorIndex = 6
     End If
     If Sheet1.Range("F1").Value = "STOP" Then
@@ -33,7 +33,7 @@ For introw = 2 To ActiveSheet.Cells(65536, 2).End(xlUp).Row
     End If
 Next
 Loop
-Sheet1.Range("F1").Value = "IDLE"
+Sheet1.Range("F1").Value = "Ready to Ping."
 End Sub
 
 Sub stop_ping()
